@@ -12,22 +12,33 @@
        (map parse-long)
        (into [])))
 
-(defn- depth-change [[a b]]
-  (cond
-    (< a b) :increased
-    (= a b) :constant
-    (> a b) :decreased))
+(defn- direction-of-depth-change [measurements]
+  (let [to-direction (fn [[prev curr]] (cond
+                                        (< prev curr) :increased
+                                        (= prev curr) :constant
+                                        (> prev curr) :decreased))]
+    (->> measurements
+         (partition 2 1)
+         (map to-direction))))
 
-(defn solution-part-one [input]
-  (->> (parse-input input)
-       (partition 2 1)
-       (map depth-change)
+(defn- total-times-measure-increased [measurements]
+  (->> measurements
+       (direction-of-depth-change)
        (filter (fn [x] (= :increased x)))
        (count)))
 
+(defn solution-part-one [input]
+  (->> (parse-input input)
+       (total-times-measure-increased)))
 
+;; Part two
 
+(defn- sliding-sum [measurements]
+  (->> measurements
+       (partition 3 1)
+       (map (partial apply +))))
 
-
-
-
+(defn solution-part-two [input]
+  (->> (parse-input input)
+       (sliding-sum)
+       (total-times-measure-increased)))

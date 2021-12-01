@@ -12,3 +12,9 @@
 
 (deftest solution-part-one-given-problem-input-then-correct-result
   (is (= 1292 (solution-part-one problem-input))))
+
+(deftest solution-part-two-given-example-input-then-example-result
+  (is (= 5 (solution-part-two example-input))))
+
+(deftest solution-part-two-given-problem-input-then-correct-result
+  (is (= 1262 (solution-part-two problem-input))))
