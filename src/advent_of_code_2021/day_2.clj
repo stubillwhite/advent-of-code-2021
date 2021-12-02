@@ -19,23 +19,38 @@
 
 (defn- create-state []
   {:position 0
-   :depth    0})
+   :depth    0
+   :aim      0})
 
-(defn- update-state [{:keys [position depth] :as state} {:keys [dir dist] :as action}]
+(defn- update-position [{:keys [position depth] :as state} {:keys [dir dist] :as action}]
   (case (:dir action)
-        :forward (assoc state :position (+ position dist))
-        :down    (assoc state :depth    (+ depth dist))
-        :up      (assoc state :depth    (- depth dist))))
+    :forward (assoc state :position (+ position dist))
+    :down    (assoc state :depth    (+ depth dist))
+    :up      (assoc state :depth    (- depth dist))))
 
-(defn- execute-actions [actions]
-  (reduce update-state (create-state) actions))
+(defn- plot-course [actions]
+  (reduce update-position (create-state) actions))
 
 (defn- product-of-final-position [{:keys [position depth]}]
   (* position depth))
 
 (defn solution-part-one [input]
   (->> (parse-input input)
-       (execute-actions)
+       (plot-course)
        (product-of-final-position)))
 
 ;; Part two
+
+(defn- update-position-and-aim [{:keys [position depth aim] :as state} {:keys [dir dist] :as action}]
+  (case (:dir action)
+    :forward (assoc state :position (+ position dist) :depth (+ depth (* aim dist)))
+    :down    (assoc state :aim      (+ aim dist))
+    :up      (assoc state :aim      (- aim dist))))
+
+(defn- plot-course-considering-aim [actions]
+  (reduce update-position-and-aim (create-state) actions))
+
+(defn solution-part-two [input]
+  (->> (parse-input input)
+       (plot-course-considering-aim)
+       (product-of-final-position)))
