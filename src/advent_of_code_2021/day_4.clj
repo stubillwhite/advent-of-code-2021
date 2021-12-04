@@ -23,9 +23,6 @@
     {:numbers numbers
      :boards  boards}))
 
-(defn- find-first [f xs]
-  (first (drop-while (complement f) xs)))
-
 (defn- mark-number [colls x]
   (map (fn [coll] (remove (partial = x) coll)) colls))
 
@@ -35,16 +32,31 @@
       (update :unmarked-cols mark-number x)))
 
 (defn- winner? [{:keys [unmarked-rows unmarked-cols]}]
-  (or (some #{[]} unmarked-rows)
-      (some #{[]} unmarked-cols)))
+  (if (or (some #{[]} unmarked-rows) (some #{[]} unmarked-cols))
+    true
+    false))
 
-(defn- find-winner [boards x]
-  (let [new-boards (map (fn [board] (mark-board x board)) boards)]
-    (if-let [winner (find-first winner? new-boards)]
-      (reduced {:winner winner :last-called x})
-      new-boards)))
+(defn- score-winner [board last-called]
+  (* last-called (apply + (apply concat (:unmarked-rows board)))))
+
+(defn- calculate-winning-scores [boards numbers]
+  (letfn [(call-number [{:keys [boards scores]} number]
+            (let [new-boards                         (map (fn [board] (mark-board number board)) boards)
+                  {winners true still-playing false} (group-by winner? new-boards)]
+              {:boards still-playing
+               :scores (concat scores (for [board winners] (score-winner board number)))}))]
+    (:scores (reduce call-number {:boards boards :scores []} numbers))))
 
 (defn solution-part-one [input]
-  (let [{:keys [numbers boards]}     (parse-input input)
-        {:keys [winner last-called]} (reduce find-winner boards numbers)]
-    (* last-called (apply + (apply concat (:unmarked-rows winner))))))
+  (let [{:keys [boards numbers]} (parse-input input)]
+    (first (calculate-winning-scores boards numbers))))
+
+;; Part two
+
+(defn solution-part-two [input]
+  (let [{:keys [boards numbers]} (parse-input input)]
+    (last (calculate-winning-scores boards numbers))))
+
+
+
+
