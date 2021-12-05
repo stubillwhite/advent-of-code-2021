@@ -56,7 +56,3 @@
 (defn solution-part-two [input]
   (let [{:keys [boards numbers]} (parse-input input)]
     (last (calculate-winning-scores boards numbers))))
-
-
-
-
