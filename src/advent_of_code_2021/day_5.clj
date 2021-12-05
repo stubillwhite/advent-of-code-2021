@@ -46,3 +46,10 @@
        (mark-points)
        (count-overlaps)))
 
+;; Part two
+
+(defn solution-part-two [input]
+  (->> (parse-input input)
+       (mapcat to-points)
+       (mark-points)
+       (count-overlaps)))
