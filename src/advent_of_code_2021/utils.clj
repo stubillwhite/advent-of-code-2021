@@ -15,3 +15,6 @@
 
 (defn parse-long [s]
   (Long/parseLong (string/trim s)))
+
+(def any-pred
+  some-fn)
