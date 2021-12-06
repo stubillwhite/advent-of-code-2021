@@ -28,3 +28,9 @@
 (defn solution-part-one [input]
   (let [simulation (simulation-by-day (parse-input input))]
     (reduce + (nth simulation 80))))
+
+;; Part two
+
+(defn solution-part-two [input]
+  (let [simulation (simulation-by-day (parse-input input))]
+    (reduce + (nth simulation 256))))

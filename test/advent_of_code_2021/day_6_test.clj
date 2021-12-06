@@ -37,3 +37,9 @@
 (deftest solution-part-one-given-problem-input-then-correct-result
   (is (= 383160 (solution-part-one problem-input))))
 
+(deftest solution-part-two-given-example-input-then-example-result
+  (is (= 26984457539 (solution-part-two example-input))))
+
+(deftest solution-part-two-given-problem-input-then-correct-result
+  (is (= 1721148811504 (solution-part-two problem-input))))
+
