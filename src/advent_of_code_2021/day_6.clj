@@ -22,8 +22,8 @@
         (assoc 8 reproducing)
         (vec))))
 
-(defn simulation-by-day [fish-by-day]
-  (iterate next-day fish-by-day))
+(defn simulation-by-day [grouped-fish]
+  (iterate next-day grouped-fish))
 
 (defn solution-part-one [input]
   (let [simulation (simulation-by-day (parse-input input))]
