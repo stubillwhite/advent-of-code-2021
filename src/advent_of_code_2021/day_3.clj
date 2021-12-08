@@ -1,7 +1,7 @@
 (ns advent-of-code-2021.day-3
-  (:require [advent-of-code-2021.utils :refer [parse-long]]
-            [clojure.java.io :as io]
-            [clojure.string :as string]))
+  (:require
+   [clojure.java.io :as io]
+   [clojure.string :as string]))
 
 (def problem-input
   (string/trim (slurp (io/resource "day-3-input.txt"))))

@@ -17,5 +17,3 @@
 
 (deftest solution-part-two-given-problem-input-then-correct-result
   (is (= 97164301 (solution-part-two problem-input))))
-
-

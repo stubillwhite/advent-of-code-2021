@@ -1,6 +1,6 @@
 (ns advent-of-code-2021.day-5
   (:require
-   [advent-of-code-2021.utils :refer [parse-long any-pred]]
+   [advent-of-code-2021.utils :refer [any-pred parse-long]]
    [clojure.java.io :as io]
    [clojure.string :as string]))
 
