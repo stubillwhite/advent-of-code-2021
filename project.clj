@@ -30,7 +30,10 @@
                  [expound "0.7.2"]
 
                  ;; DI
-                 [mount "0.1.16"]]
+                 [mount "0.1.16"]
+
+                 ;; Profiling
+                 [com.taoensso/tufte "2.2.0"]]
   
   :profiles {:dev     {:dependencies [[org.clojure/tools.namespace "1.0.0"]]
                        :source-paths ["dev"]}})

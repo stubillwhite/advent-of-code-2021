@@ -22,3 +22,15 @@
 
 (deftest solution-part-one-given-problem-input-then-correct-result
   (is (= 525 (solution-part-one problem-input))))
+
+(def trivial-input
+  "acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf")
+
+(deftest solution-part-two-given-trivial-input-then-trivial-result
+  (is (= 5353 (solution-part-two trivial-input))))
+
+(deftest solution-part-two-given-example-input-then-example-result
+  (is (= 61229 (solution-part-two example-input))))
+
+(deftest solution-part-two-given-problem-input-then-correct-result
+  (is (= 1083859 (solution-part-two problem-input))))
