@@ -56,3 +56,29 @@
        (map score-syntax-error)
        (apply +)))
 
+;; Part two
+
+(defn- autocomplete [{:keys [stack]}]
+  (let [to-closer (fn [ch] (get closers (string/index-of openers ch)))]
+    (->> stack
+         (map to-closer)
+         (apply str))))
+
+(defn- score-autocompletion [s]
+  (let [scores {\) 1
+                \] 2
+                \} 3
+                \> 4}]
+    (reduce (fn [score ch] (+ (* score 5) (get scores ch))) 0 s)))
+
+(defn- winning-score [scores]
+  (nth (sort scores) (/ (count scores) 2)))
+
+(defn solution-part-two [input]
+  (->> (parse-input input)
+       (map parse-chunks)
+       (filter (complement corrupted?))
+       (map autocomplete)
+       (map score-autocompletion)
+       (winning-score)))
+
