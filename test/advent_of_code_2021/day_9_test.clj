@@ -16,3 +16,9 @@
 
 (deftest solution-part-one-given-problem-input-then-correct-result
   (is (= 462 (solution-part-one problem-input))))
+
+(deftest solution-part-two-given-example-input-then-example-result
+  (is (= 1134 (solution-part-two example-input))))
+
+(deftest solution-part-two-given-problem-input-then-correct-result
+  (is (= 1397760 (solution-part-two problem-input))))
