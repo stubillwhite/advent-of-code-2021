@@ -39,6 +39,12 @@
 (defn- flashing? [grid loc]
   (> (grid loc) 9))
 
+(defn flashed? [grid loc]
+  (zero? (grid loc)))
+
+(defn- total-flashed [grid]
+  (count (filter (partial flashed? grid) (keys grid))))
+
 (defn- increase-energy-and-maybe-flash [grid]
   (loop [grid        grid
          to-increase (keys grid)]
@@ -63,11 +69,23 @@
   (iterate next-state (parse-input input)))
 
 (defn total-flashes-after-n-steps [input n]
-  (let [flashed?      (fn [grid loc] (zero? (grid loc)))
-        total-flashed (fn [grid] (count (filter (partial flashed? grid) (keys grid))))]
-    (reduce (fn [acc state] (+ acc (total-flashed state)))
-            0
-            (take (inc n) (simulation-states input)))))
+  (reduce (fn [acc state] (+ acc (total-flashed state)))
+          0
+          (take (inc n) (simulation-states input))))
 
 (defn solution-part-one [input]
   (total-flashes-after-n-steps input 100))
+
+;; Part two
+
+(defn- all-flashed? [grid]
+  (= (total-flashed grid) (count (keys grid))))
+
+(defn solution-part-two [input]
+  (let [states (simulation-states input)]
+    (reduce (fn [n state]
+              (if (all-flashed? state)
+                (reduced n)
+                (inc n)))
+            0
+            states)))
